@@ -3,7 +3,9 @@ import { Text } from 'react-native';
 
 const Settings = () => {
   return (
-    <Text>Hello, I am your Settings!</Text>
+    <>
+			<Text>Hello, I am your Settings!</Text>
+    </>
   );
 }
 
