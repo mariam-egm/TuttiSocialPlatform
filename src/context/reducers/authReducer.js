@@ -1,6 +1,11 @@
 import { RESTORE_TOKEN, SIGN_IN, SIGN_OUT } from '../../constants/actionTypes';
 
-const authReducer = (prevState, action) => {
+const initialState = {
+  isLoading: true,
+  userToken: null,
+}
+
+const authReducer = (prevState = initialState, action) => {
   switch (action.type) {
     case RESTORE_TOKEN:
       return {
