@@ -10,33 +10,52 @@ import {
 import GeneralButton from '../../components/GeneralButton';
 import { getPosts } from '../../APIRequests/Posts';
 import { SECONDARY } from '../../constants/buttonTypes';
+import postsReducer from '../../context/reducers/postsReducer';
+import PostsContext from '../../context/contexts/postContext';
+import { 
+	getPostsAction, 
+	getMorePostsAction 
+} from '../../context/actions/postActions';
 import styles from './style';
 
 const PostsList = () => {
 	const [posts, setPosts] = useState([]);
 	const [numberOfPages, setNumberOfPages] = useState(0);
 
+	const [state, dispatch] = useReducer(postsReducer);
+
 	useEffect(() => {
 		getPosts()
-		.then(response => setPosts(response.data.data))
+		.then(response => dispatch(getPostsAction(response.data.data)))
 		.catch(error => console.log("from posts lists error", error))
   },[]);
+
+  const postContext = useMemo(
+    () => ({
+      getPosts: (posts) => {
+        dispatch(getPostsAction(posts));
+      },
+			getMorePosts: (posts) => {
+				dispatch(getMorePostsAction(posts));
+			}    
+		}),[]
+	);
 
 	const renderItem = ({ item }) => (
     <PostCard post={item} />
   );
 
-	const onSeeMorePress = async () => {
+	const onSeeMorePress = () => {
 		getPosts(numberOfPages + 1)
 		.then(response => {
-			setPosts([...posts, ...response.data.data])
+			dispatch(getMorePostsAction(response.data.data))
 			setNumberOfPages(numberOfPages + 1)
 		})
 		.catch(error => console.log("from posts lists error", error))
 	}
 
   return (
-		<>
+		<PostsContext.Provider value={postContext}>
 			<Text style={styles.postsTitle}>Posts</Text> 
 				<FlatList
 					data={posts}
@@ -50,7 +69,7 @@ const PostsList = () => {
             />
           }
 				/>
-	</>
+	</PostsContext.Provider>
   );
 }
 
