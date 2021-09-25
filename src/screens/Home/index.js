@@ -28,7 +28,6 @@ const Home = () => {
 	}
 	
 	const [state, dispatch] = useReducer(postsReducer, initialState);
-  console.log(state.posts, "home screen");
   const postContext = useMemo(
     () => ({
       getPosts: (posts) => {
