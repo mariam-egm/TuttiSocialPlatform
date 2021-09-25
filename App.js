@@ -13,13 +13,11 @@ import {
 import AuthContext from './src/context/authContext';
 import reducer from './src/context/reducer';
 
-
 const App = () => {
   const initialState = {
     isLoading: true,
     userToken: null,
   }
-
 
   useEffect(() => {
     // Fetch the token from storage then navigate to our appropriate place
@@ -51,7 +49,6 @@ const App = () => {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
-
 
   return (
     <AuthContext.Provider value={authContext}>
