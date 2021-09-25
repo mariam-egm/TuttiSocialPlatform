@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 
 import { getTags } from '../../APIRequests/Tags';
 import { addIndex } from '../../utils/FlatListUtil';
+import PostsList from '../../components/PostsList';
 import styles from './style';
 
 const Home = () => {
@@ -15,7 +16,7 @@ const Home = () => {
         <Tags />
       </View>
       <View style={styles.postsContainer}>
-
+        <PostsList />
       </View>
 		</View>
   );
@@ -24,7 +25,7 @@ const Home = () => {
 const ActiveUsersDropDown = () => {
   return (
     <TouchableOpacity 
-      onPress={ () => console.log("pressed!")}
+      onPress={() => console.log("pressed!")}
       style={styles.showUsersContainer}
     >
       <Text style={styles.showUsersTitle}>Active Users</Text>
@@ -46,7 +47,7 @@ const Tags = () => {
   );
 
   return (
-    <View>
+    <>
       <Text style={styles.tagsTitle}>Tags</Text> 
         <FlatList
           data={tags}
@@ -54,7 +55,7 @@ const Tags = () => {
           keyExtractor={item => item.id}
           horizontal
         />
-    </View>
+    </>
   )
 }
 

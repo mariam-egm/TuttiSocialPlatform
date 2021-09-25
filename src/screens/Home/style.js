@@ -40,14 +40,14 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.primaryColor,
 		justifyContent: 'center',
 		alignItems: 'center',
-		padding: 10,
+		padding: 5,
 		marginHorizontal: 5,
 		borderRadius: 10
 	},
 	tagName: {
 		color: colors.white,
 		fontWeight: 'bold',
-		fontSize: 18
+		fontSize: 16
 	}
 });
 
