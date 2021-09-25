@@ -4,7 +4,7 @@ import colors from '../../constants/colors';
 const styles = StyleSheet.create({
 	cardContainer:{
 		backgroundColor: colors.primaryColor,
-		padding: 20,
+		padding: 15,
 		flex: 1,
 		margin: 5,
 		borderRadius: 10
