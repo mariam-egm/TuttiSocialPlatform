@@ -4,12 +4,7 @@ import {
   SIGN_OUT 
 } from '../../constants/authActionTypes';
 
-const initialState = {
-  isLoading: true,
-  userToken: null,
-}
-
-const authReducer = (prevState = initialState, action) => {
+const authReducer = (prevState, action) => {
   switch (action.type) {
     case RESTORE_TOKEN:
       return {

@@ -14,7 +14,12 @@ import AuthContext from './src/context/contexts/authContext';
 import authReducer from './src/context/reducers/authReducer';
 
 const App = () => {
-  const [state, dispatch] = useReducer(authReducer);
+  const initialState = {
+    isLoading: true,
+    userToken: null,
+  }
+  
+  const [state, dispatch] = useReducer(authReducer, initialState);
 
   useEffect(() => {
     // Fetch the token from storage then navigate to our appropriate place

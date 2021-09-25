@@ -3,12 +3,7 @@ import {
   GET_MORE_POSTS 
 } from '../../constants/postActionTypes';
 
-const initialState = {
-  posts: [],
-  isLoading: true
-}
-
-const postsReducer = (prevState = initialState, action) => {
+const postsReducer = (prevState, action) => {
   switch (action.type) {
     case GET_POSTS:
       return {
