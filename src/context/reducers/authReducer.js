@@ -1,4 +1,8 @@
-import { RESTORE_TOKEN, SIGN_IN, SIGN_OUT } from '../../constants/actionTypes';
+import { 
+  RESTORE_TOKEN, 
+  SIGN_IN, 
+  SIGN_OUT 
+} from '../../constants/authActionTypes';
 
 const initialState = {
   isLoading: true,

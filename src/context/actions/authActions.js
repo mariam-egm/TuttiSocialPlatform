@@ -2,7 +2,7 @@ import {
 	RESTORE_TOKEN, 
 	SIGN_IN, 
 	SIGN_OUT 
-} from '../../constants/actionTypes';
+} from '../../constants/authActionTypes';
 
 const signInAction = (token) => {
 	return {

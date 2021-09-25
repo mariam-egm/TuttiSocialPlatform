@@ -1,7 +1,7 @@
 import { 
 	GET_POSTS,
   GET_MORE_POSTS 
-} from '../../constants/getPostsTypes';
+} from '../../constants/postActionTypes';
 
 const initialState = {
   posts: [],
@@ -28,7 +28,7 @@ const postsReducer = (prevState = initialState, action) => {
     default:
 			return {
 				...prevState,
-				isLoading = false
+				isLoading: false
 			};
   }
 }
