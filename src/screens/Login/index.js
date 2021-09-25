@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, TextInput } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import AuthContext from '../../context/authContext';
 import GeneralButton from '../../components/GeneralButton';
 import { PRIMARY } from '../../constants/buttonTypes';
+import { login } from '../../APIRequests/Auth';
+
 import styles from './style';
 
 const Login = () => {
@@ -21,6 +25,8 @@ const Login = () => {
 }
 
 const LoginForm = () => {
+  const { signIn } = useContext(AuthContext);
+
   const [email, onEmailChange] = React.useState('');
   const [password, onPasswordChange] = React.useState('');
 
@@ -42,11 +48,23 @@ const LoginForm = () => {
       <GeneralButton 
         title='LOGIN' 
         type={PRIMARY}
-        onPress={() => console.log('login pressed!')} 
+        onPress={() => onLoginPress(email, password, signIn)} 
       />
     </View>
   )
 }
 
+const onLoginPress = (email, password, signIn) => {
+  login(email, password)
+  .then(response => {
+    AsyncStorage.setItem('userToken', response.data.token)
+    .then(() => signIn())
+    .catch(e => console.log("async storage error", e))
+  })
+  .catch(error => {
+    //handle errors
+    console.log("login error", error.response.data)
+  })
+}
 
 export default Login;

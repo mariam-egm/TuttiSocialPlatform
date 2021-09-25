@@ -1,6 +1,7 @@
 import { RESTORE_TOKEN, SIGN_IN, SIGN_OUT } from '../constants/actionTypes';
 
 const Reducer = (prevState, action) => {
+  console.log('reducer', action)
   switch (action.type) {
     case RESTORE_TOKEN:
       return {
@@ -11,13 +12,11 @@ const Reducer = (prevState, action) => {
     case SIGN_IN:
       return {
         ...prevState,
-        isSignout: false,
         userToken: action.payload.token,
       };
     case SIGN_OUT:
       return {
         ...prevState,
-        isSignout: true,
         userToken: null,
       };
   }

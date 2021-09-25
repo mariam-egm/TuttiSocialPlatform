@@ -1,9 +1,9 @@
-import { SIGN_IN, SIGN_OUT } from '../constants/actionTypes';
+import { RESTORE_TOKEN, SIGN_IN, SIGN_OUT } from '../constants/actionTypes';
 
 const signInAction = (token) => {
 	return {
 		type: SIGN_IN,
-		payload: token
+		payload: { token }
 	}
 }
 
@@ -13,7 +13,15 @@ const signOutAction = () => {
 	}
 }
 
+const restoreTokenAction = (token) => {
+	return {
+		type: RESTORE_TOKEN,
+		payload: { token }
+	}
+}
+
 export {
 	signInAction,
-	signOutAction
+	signOutAction,
+	restoreTokenAction
 }
