@@ -1,6 +1,6 @@
-import { RESTORE_TOKEN, SIGN_IN, SIGN_OUT } from '../constants/actionTypes';
+import { RESTORE_TOKEN, SIGN_IN, SIGN_OUT } from '../../constants/actionTypes';
 
-const Reducer = (prevState, action) => {
+const authReducer = (prevState, action) => {
   switch (action.type) {
     case RESTORE_TOKEN:
       return {
@@ -21,4 +21,4 @@ const Reducer = (prevState, action) => {
   }
 }
 
-export default Reducer;
+export default authReducer;

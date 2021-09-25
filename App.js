@@ -9,15 +9,17 @@ import {
   signInAction, 
   signOutAction,
   restoreTokenAction
-} from './src/context/actions';
-import AuthContext from './src/context/authContext';
-import reducer from './src/context/reducer';
+} from './src/context/actions/authActions';
+import AuthContext from './src/context/contexts/authContext';
+import authReducer from './src/context/reducers/authReducer';
 
 const App = () => {
   const initialState = {
     isLoading: true,
     userToken: null,
   }
+
+  const [state, dispatch] = useReducer(authReducer, initialState);
 
   useEffect(() => {
     // Fetch the token from storage then navigate to our appropriate place
@@ -35,7 +37,6 @@ const App = () => {
     bootstrapAsync();
   }, []);
 
-  const [state, dispatch] = useReducer(reducer, initialState);
   const authContext = useMemo(
     () => ({
       signIn: (token) => {

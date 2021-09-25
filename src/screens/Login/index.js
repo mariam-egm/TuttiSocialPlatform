@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import AuthContext from '../../context/authContext';
+import AuthContext from '../../context/contexts/authContext';
 import GeneralButton from '../../components/GeneralButton';
 import { PRIMARY } from '../../constants/buttonTypes';
 import { login } from '../../APIRequests/Auth';
