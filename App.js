@@ -38,8 +38,8 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const authContext = useMemo(
     () => ({
-      signIn: (username, password) => {
-        dispatch(signInAction('dummy_token'));
+      signIn: (token) => {
+        dispatch(signInAction(token));
       },
       signOut: () => dispatch(signOutAction())
     }),

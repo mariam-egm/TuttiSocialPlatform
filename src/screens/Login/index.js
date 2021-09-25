@@ -6,7 +6,6 @@ import AuthContext from '../../context/authContext';
 import GeneralButton from '../../components/GeneralButton';
 import { PRIMARY } from '../../constants/buttonTypes';
 import { login } from '../../APIRequests/Auth';
-
 import styles from './style';
 
 const Login = () => {
@@ -58,7 +57,7 @@ const onLoginPress = (email, password, signIn) => {
   login(email, password)
   .then(response => {
     AsyncStorage.setItem('userToken', response.data.token)
-    .then(() => signIn())
+    .then(() => signIn(response.data.token))
     .catch(e => console.log("async storage error", e))
   })
   .catch(error => {
