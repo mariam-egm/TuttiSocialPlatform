@@ -8,6 +8,7 @@ import {
   Image,
   Pressable
 } from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import styles from './style';
 import GeneralButton from '../../components/GeneralButton';
@@ -16,6 +17,7 @@ import { getActiveUsers } from '../../APIRequests/Users';
 import { getPosts as getPostsRequest } from '../../APIRequests/Posts';
 import PostsContext from '../../context/contexts/postContext';
 import { BY_USER } from '../../constants/getPostType';
+import colors from '../../constants/colors';
 
 const ActiveUsersDropDown = () => {
   const [showActiveUsersModal, setShowActiveUsersModal] = useState(false);
@@ -52,6 +54,10 @@ const ActiveUsersDropDown = () => {
         style={styles.showUsersContainer}
       >
         <Text style={styles.showUsersTitle}>Active Users</Text>
+        <AntDesign 
+          name='caretdown'
+          color={colors.secondaryInk}
+        />
       </TouchableOpacity>
         <Modal
           animationType="slide"
@@ -60,6 +66,7 @@ const ActiveUsersDropDown = () => {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
+            <Text style={styles.modalTitle}>Active Users</Text>
             <FlatList
               data={activeUsers}
               renderItem={renderItem}

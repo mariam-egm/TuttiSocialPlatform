@@ -3,12 +3,14 @@ import colors from '../../constants/colors';
 
 const styles = StyleSheet.create({
 	showUsersContainer: {
+		flexDirection: 'row',
 		backgroundColor: colors.white,
 		height: 50,
 		width: 300,
 		borderRadius: 5,
-		justifyContent: 'center',
-		paddingHorizontal: 20
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		paddingHorizontal: 20,
 	},
 	showUsersTitle: {
 		color: colors.secondaryInk,
@@ -50,6 +52,12 @@ const styles = StyleSheet.create({
 		width: '90%',
 		height: 1,
 		backgroundColor: colors.secondaryInk
+	},
+	modalTitle: {
+		color: colors.primaryInk,
+		textAlign: 'center',
+		fontWeight: 'bold',
+		fontSize: 20
 	}
 });
 
