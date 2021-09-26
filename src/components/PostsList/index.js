@@ -70,12 +70,12 @@ const PostCard = ({post}) => {
 			</View>
 			<View style={styles.postContainer}>
 				<Text style={styles.postText}>{post.text}</Text>
-				<View style={styles.postImageContainer}>
+				{!!post.image &&<View style={styles.postImageContainer}>
 					<Image
 						style={styles.postImage}
 						source={{uri:post.image}}
 					/>
-				</View>
+				</View>}
 				<View style={styles.bottomInfoContainer}>
 					<View style={styles.likesContainer}>
 						<Text>{post.likes} Likes</Text>

@@ -1,11 +1,35 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, TextInput, View } from 'react-native';
 
-const NewPost = () => {
+import GeneralButton from '../../components/GeneralButton';
+import { createPost } from '../../APIRequests/Posts';
+import styles from './style';
+
+const NewPost = ({navigation}) => {
+  const [text, onTextChange] = React.useState('');
+
+  const onCreatePostPress = () => {
+    createPost({text})
+    .then(response => navigation.navigate('Home'))
+    .catch(error => console.log(error.response))
+  }
+
   return (
-    <>
-			<Text>Hello, I am your NewPost!</Text>
-    </>
+    <View style={styles.container}>
+      <Text style={styles.title}>Create New Post</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={onTextChange}
+        value={text}
+        placeholder={'Tell us here...'}
+        multiline
+        textAlignVertical='top'
+      />
+      <GeneralButton 
+        title="Create Post"
+        onPress={onCreatePostPress}
+      />
+    </View>
   );
 }
 
