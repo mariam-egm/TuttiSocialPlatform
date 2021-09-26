@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
 	},
 	secondaryTitle: {
 		...basicContainerStyle,
-		color: colors.primaryColor
+		color: colors.primaryColor,
+		fontWeight: 'bold'
 	}
 });
 
