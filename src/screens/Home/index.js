@@ -6,12 +6,20 @@ import React,
   useMemo, 
   useContext 
 } from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { 
+  View, 
+  Text, 
+  TouchableOpacity, 
+  FlatList, 
+  Modal
+} from 'react-native';
 
 import { getTags } from '../../APIRequests/Tags';
 import { addIndex } from '../../utils/FlatListUtil';
 import { getPosts as getPostsRequest } from '../../APIRequests/Posts';
 import PostsList from '../../components/PostsList';
+import ActiveUsersDropDown from '../../components/ActiveUsersDropDown';
+import GeneralButton from '../../components/GeneralButton';
 import styles from './style';
 import PostsContext from '../../context/contexts/postContext';
 import postsReducer from '../../context/reducers/postsReducer';
@@ -20,6 +28,7 @@ import {
   getMorePostsAction
 } from '../../context/actions/postActions';
 import { BY_TAG } from '../../constants/getPostType';
+import { SECONDARY } from '../../constants/buttonTypes';
 
 const Home = () => {
   const initialState = {
@@ -57,17 +66,6 @@ const Home = () => {
       </View>
     </PostsContext.Provider>
   );
-}
-
-const ActiveUsersDropDown = () => {
-  return (
-    <TouchableOpacity 
-      onPress={() => console.log("pressed!")}
-      style={styles.showUsersContainer}
-    >
-      <Text style={styles.showUsersTitle}>Active Users</Text>
-    </TouchableOpacity>
-  )
 }
 
 const Tags = () => {
