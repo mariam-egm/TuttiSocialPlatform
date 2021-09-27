@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useValidation } from 'react-native-form-validator';
+import Snackbar from 'react-native-snackbar';
 
 import loginSchema from '../../validationSchemas/loginSchema';
 import AuthContext from '../../context/contexts/authContext';
@@ -57,7 +58,10 @@ const LoginForm = () => {
       })
       .catch(error => {
         //handle errors
-        console.log("login error", error.response.data)
+        Snackbar.show({
+          text: error.response.data.error,
+          duration: Snackbar.LENGTH_SHORT,
+        });
       })
     }
   }
