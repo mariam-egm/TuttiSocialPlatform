@@ -42,15 +42,18 @@ const ActiveUsersDropDown = () => {
     .catch(error => console.log('active user drop down error', error))
   }
 
+  const onActiveUsersDropdownPress = () => {
+    setShowActiveUsersModal(true)
+    getActiveUsers()
+    .then(response => setActiveUsers(response.data.data))
+    .catch(error => console.log('active users drop down error', error))
+  }
+
+
   return (
     <>
       <TouchableOpacity 
-        onPress={() => {
-          setShowActiveUsersModal(true)
-          getActiveUsers()
-          .then(response => setActiveUsers(response.data.data))
-          .catch(error => console.log('active users drop down error', error))
-        }}
+        onPress={onActiveUsersDropdownPress}
         style={styles.showUsersContainer}
       >
         <Text style={styles.showUsersTitle}>Active Users</Text>
