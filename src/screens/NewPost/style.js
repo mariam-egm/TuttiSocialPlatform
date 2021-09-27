@@ -16,11 +16,16 @@ const styles = StyleSheet.create({
 		borderColor: colors.primaryColor,
 		borderRadius: 10,
 		borderWidth: 3,
-		marginVertical: 20,
+		marginTop: 20,
+		marginBottom: 10,
 		padding: 15,
 		height: '80%',
 		fontSize: 20,
 		backgroundColor: colors.white
+	},
+	errorText: {
+		color: colors.error,
+		marginBottom: 5
 	}
 });
 

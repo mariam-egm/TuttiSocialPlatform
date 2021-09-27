@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, TextInput, View } from 'react-native';
+import { useValidation } from 'react-native-form-validator';
 
+import postSchema from '../../validationSchemas/postSchema';
 import GeneralButton from '../../components/GeneralButton';
 import { createPost } from '../../APIRequests/Posts';
 import styles from './style';
@@ -8,10 +10,25 @@ import styles from './style';
 const NewPost = ({navigation}) => {
   const [text, onTextChange] = React.useState('');
 
+  const { 
+    validate, 
+    getErrorsInField, 
+    isFieldInError 
+  } = useValidation({
+    state: { text }
+  });
+
   const onCreatePostPress = () => {
-    createPost({text})
-    .then(response => navigation.navigate('Home'))
-    .catch(error => console.log(error.response))
+    // validate post form
+    // send createPost API request when there are no errors
+    if(validate(postSchema)){
+      createPost({text})
+      .then(response => 
+        // navigate to Home after success
+        navigation.navigate('Home')
+      )
+      .catch(error => console.log(error.response))
+    }
   }
 
   return (
@@ -25,6 +42,9 @@ const NewPost = ({navigation}) => {
         multiline
         textAlignVertical='top'
       />
+      {isFieldInError('text') && getErrorsInField('text').map(errorMessage => 
+        <Text style={styles.errorText}>{errorMessage}</Text>
+      )}
       <GeneralButton 
         title="Create Post"
         onPress={onCreatePostPress}
