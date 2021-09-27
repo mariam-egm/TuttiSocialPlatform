@@ -87,3 +87,4 @@ const PostCard = ({post}) => {
 }
 
 export default PostsList;
+
