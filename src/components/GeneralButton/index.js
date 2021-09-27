@@ -7,7 +7,7 @@ import styles from './style';
 const GeneralButton = ({onPress, title, type}) => {
   return (
     <TouchableOpacity onPress={onPress} style={getStyle(type)}>
-			<Text style={getTitleStyle(type)}>{title}</Text>
+		<Text style={getTitleStyle(type)}>{title}</Text>
     </TouchableOpacity>
   );
 }

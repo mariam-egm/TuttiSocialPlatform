@@ -7,26 +7,26 @@ import GeneralButton from '../../components/GeneralButton';
 import styles from './style';
 
 const Settings = () => {
-  const { signOut } = useContext(AuthContext);
+	const { signOut } = useContext(AuthContext);
 
-  const onSignOutPress = async () => {
-    await AsyncStorage.removeItem('userToken')
-    signOut()
-  }
+	const onSignOutPress = async () => {
+		await AsyncStorage.removeItem('userToken')
+		signOut()
+	}
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Settings</Text>
-      <View style={styles.body}>
-        <Text style={styles.mainMessage}>We are always happy to have you with Tutti!</Text>
-        <Text style={styles.logoutQuestion}>Are you sure you want to logout?</Text>
-        <GeneralButton 
-          title="Logout"
-          onPress={onSignOutPress}
-        />
-      </View>
-    </View>
-  );
+	return (
+		<View style={styles.container}>
+			<Text style={styles.title}>Settings</Text>
+			<View style={styles.body}>
+				<Text style={styles.mainMessage}>We are always happy to have you with Tutti!</Text>
+				<Text style={styles.logoutQuestion}>Are you sure you want to logout?</Text>
+				<GeneralButton 
+				title="Logout"
+				onPress={onSignOutPress}
+				/>
+			</View>
+		</View>
+	);
 }
 
 export default Settings;

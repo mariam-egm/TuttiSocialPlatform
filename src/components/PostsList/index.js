@@ -15,18 +15,18 @@ import styles from './style';
 
 const PostsList = () => {
 	const [numberOfPages, setNumberOfPages] = useState(0);
-  const { getPosts, getMorePosts, getPostSelector } = useContext(PostsContext);
+	const { getPosts, getMorePosts, getPostSelector } = useContext(PostsContext);
 
 	useEffect(() => {
 		getPostsRequest({})
 		.then(response => getPosts(response.data.data))
 		.catch(error => console.log("from posts lists error", error))
-  },[]);
+  	},[]);
 
 
 	const renderItem = ({ item }) => (
-    <PostCard post={item} />
-  );
+		<PostCard post={item} />
+  	);
 
 	const onSeeMorePress = () => {
 		getPostsRequest({ pageNumber: numberOfPages + 1})
@@ -37,23 +37,22 @@ const PostsList = () => {
 		.catch(error => console.log("from posts lists error", error))
 	}
 
-  return (
+  	return (
 		<>
 			<Text style={styles.postsTitle}>Posts</Text> 
-				<FlatList
-					data={getPostSelector()}
-					renderItem={renderItem}
-					keyExtractor={item => item.id}
-					ListFooterComponent = {
-            <GeneralButton 
-              title="SEE MORE"
-							type={SECONDARY}
-							onPress={() => onSeeMorePress()}
-            />
-          }
-				/>
-			</>
-  );
+			<FlatList
+				data={getPostSelector()}
+				renderItem={renderItem}
+				keyExtractor={item => item.id}
+				ListFooterComponent = {
+				<GeneralButton 
+					title="SEE MORE"
+					type={SECONDARY}
+					onPress={() => onSeeMorePress()}
+				/>}
+			/>
+		</>
+	);
 }
 
 const PostCard = ({post}) => {
