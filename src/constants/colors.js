@@ -5,5 +5,6 @@ export default colors = {
     white: '#ffffff',
     shadowColor: '#808080',
     primaryInk: '#6b6d85',
-    secondaryInk: '#aeb4bc'
+    secondaryInk: '#aeb4bc',
+    error: '#ff0000'
 }
