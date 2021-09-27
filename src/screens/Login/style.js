@@ -31,8 +31,14 @@ const styles = StyleSheet.create({
 		elevation: 8,
 		borderRadius: 10,
 		backgroundColor: colors.white,
-		marginBottom: 50,
 		paddingLeft: 20
+	},
+	inputFieldContainer: {
+		paddingBottom: 50
+	},
+	errorText: {
+		color: colors.error,
+		marginTop: 10
 	}
 });
 
