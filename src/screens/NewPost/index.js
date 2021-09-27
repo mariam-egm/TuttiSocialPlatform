@@ -8,7 +8,7 @@ import { createPost } from '../../APIRequests/Posts';
 import styles from './style';
 
 const NewPost = ({navigation}) => {
-  const [text, onTextChange] = React.useState('');
+  const [text, setText] = React.useState('');
 
   const { 
     validate, 
@@ -23,9 +23,11 @@ const NewPost = ({navigation}) => {
     // send createPost API request when there are no errors
     if(validate(postSchema)){
       createPost({text})
-      .then(response => 
+      .then(response => {
         // navigate to Home after success
-        navigation.navigate('Home')
+        setText('')
+        navigation.jumpTo('Home')
+      } 
       )
       .catch(error => console.log(error.response))
     }
@@ -36,7 +38,7 @@ const NewPost = ({navigation}) => {
       <Text style={styles.title}>Create New Post</Text>
       <TextInput
         style={styles.input}
-        onChangeText={onTextChange}
+        onChangeText={setText}
         value={text}
         placeholder={'Tell us here...'}
         multiline
