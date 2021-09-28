@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: colors.primaryColor
 	},
-	welcomeText: {
+	welcomeTitleText: {
 		color: colors.white,
 		fontWeight: 'bold',
 		fontSize: 30
@@ -39,6 +39,24 @@ const styles = StyleSheet.create({
 	errorText: {
 		color: colors.error,
 		marginTop: 10
+	},
+	welcomeText: {
+		color: colors.primaryInk,
+		textAlign: 'center',
+		marginVertical: 20,
+		fontSize: 20,
+		fontWeight: 'bold'
+	},
+	emailText: {
+		color: colors.primaryColor,
+		textAlign: 'center',
+		fontSize: 20,
+		fontWeight: 'bold'
+	},
+	welcomeImage: {
+		width: 100, 
+		height: 100, 
+		alignSelf: 'center'
 	}
 });
 
