@@ -41,7 +41,7 @@ const App = () => {
 
   const authContext = useMemo(
     () => ({
-      signIn: token => dispatch(signInAction(token)),
+      signIn: (token, userRole) => dispatch(signInAction(token, userRole)),
       signOut: () => dispatch(signOutAction()),
       getRole: () => state.userRole
     }),
