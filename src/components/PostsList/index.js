@@ -7,6 +7,7 @@ import {
 	View,
 	Alert 
 } from 'react-native';
+import DoubleClick from 'react-native-double-tap';
 
 import GeneralButton from '../../components/GeneralButton';
 import { 
@@ -123,34 +124,41 @@ const PostsList = ({navigation}) => {
 
 const PostCard = ({post, onPostCardPress}) => {
 	return (
-		<TouchableOpacity 
-			style={styles.cardContainer}
-			onPress={onPostCardPress}
-		>
-			<View style={styles.postOwnerNameContainer}>
-				<View style={styles.ownerImageContainer}>
-					<Image
-						style={styles.ownerImage}
-						source={{uri:post.owner.picture}}
-					/>
-				</View>				
-				<Text style={styles.ownerName}>{post.owner.firstName} {post.owner.lastName}</Text>
-			</View>
-			<View style={styles.postContainer}>
-				<Text style={styles.postText}>{post.text}</Text>
-				{!!post.image &&<View style={styles.postImageContainer}>
-					<Image
-						style={styles.postImage}
-						source={{uri:post.image}}
-					/>
-				</View>}
-				<View style={styles.bottomInfoContainer}>
-					<View style={styles.likesContainer}>
-						<Text style={styles.likeText}>{post.likes} Likes</Text>
+		<View style={styles.cardContainer}>
+			<DoubleClick 
+				singleTap={() => {
+					console.log("single tap");
+				}}
+				doubleTap={() => {
+					console.log("double tap");
+				}}
+				delay={200}
+			>
+				<View style={styles.postOwnerNameContainer}>
+					<View style={styles.ownerImageContainer}>
+						<Image
+							style={styles.ownerImage}
+							source={{uri:post.owner.picture}}
+						/>
+					</View>				
+					<Text style={styles.ownerName}>{post.owner.firstName} {post.owner.lastName}</Text>
+				</View>
+				<View style={styles.postContainer}>
+					<Text style={styles.postText}>{post.text}</Text>
+					{!!post.image &&<View style={styles.postImageContainer}>
+						<Image
+							style={styles.postImage}
+							source={{uri:post.image}}
+						/>
+					</View>}
+					<View style={styles.bottomInfoContainer}>
+						<View style={styles.likesContainer}>
+							<Text>{post.likes} Likes</Text>
+						</View>
 					</View>
 				</View>
-			</View>
-		</TouchableOpacity>
+			</DoubleClick>
+		</View>
 	)
 }
 
