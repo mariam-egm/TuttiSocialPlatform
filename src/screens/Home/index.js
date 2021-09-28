@@ -71,11 +71,19 @@ const Home = () => {
 const Tags = () => {
 	const [tags, setTags] = useState([]);
 	const { getPosts, setLoading, getLoading } = useContext(PostsContext);
+	const [tagLoading, setTagLoading] = useState(false);
 
 	useEffect(() => {
-	getTags()
-	.then(response => setTags(addIndex(response.data.data)))
-	.catch(error => console.log('tags', error))
+		setTagLoading(true);
+		getTags()
+		.then(response => {
+			setTags(addIndex(response.data.data));
+			setTagLoading(false);
+		})
+		.catch(error => { 
+			console.log('tags', error);
+			setTagLoading(false);
+		})
 	}, []);
 
 	const renderItem = ({ item }) => (
@@ -107,6 +115,8 @@ const Tags = () => {
 			renderItem={renderItem}
 			keyExtractor={item => item.id}
 			horizontal
+			refreshing={tagLoading}
+			onRefresh={() => {}}
 		/>
 	</>
   )
