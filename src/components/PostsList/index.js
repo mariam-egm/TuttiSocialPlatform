@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { 
-	Text, 
-	FlatList, 
-	TouchableOpacity, 
+	Text,
+	FlatList,
 	Image,
 	View,
-	Alert 
+	Alert
 } from 'react-native';
 import DoubleClick from 'react-native-double-tap';
 
@@ -15,10 +14,10 @@ import {
 	deletePost as deletePostRequest
 } from '../../APIRequests/Posts';
 import { SECONDARY } from '../../constants/buttonTypes';
-import PostsContext from '../../context/contexts/postContext';
-import styles from './style';
 import { ADMIN } from '../../constants/userRoles';
+import PostsContext from '../../context/contexts/postContext';
 import AuthContext from '../../context/contexts/authContext';
+import styles from './style';
 
 const PostsList = ({navigation}) => {
 	const [numberOfPages, setNumberOfPages] = useState(0);
@@ -74,8 +73,25 @@ const PostsList = ({navigation}) => {
 	}
 
 	const onDeletePress = (postId) => {
+		setLoading(true);
 		deletePostRequest(postId)
-		.then(response => console.log(response))
+		.then(response => {
+			setNumberOfPages(0);
+			getPostsRequest({
+				pageNumber: numberOfPages,
+				getPostsType: getRetrievePostsType(),
+				id: getRetrievePostTypeId() 
+			})
+			.then(response => {
+				setLoading(false);
+				getPosts(response.data.data);
+				setLoading(false);
+			})
+			.catch(error => {
+				console.log("from posts lists error", error)
+				setLoading(false);
+			})
+		})
 		.catch(error => console.log("delete post error"))
 	}
 
