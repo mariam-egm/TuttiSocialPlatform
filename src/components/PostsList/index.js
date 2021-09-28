@@ -22,7 +22,6 @@ import AuthContext from '../../context/contexts/authContext';
 
 const PostsList = ({navigation}) => {
 	const [numberOfPages, setNumberOfPages] = useState(0);
-	const [lastPress, setLastPress] = useState(null);
 
 	const { getRole } = useContext(AuthContext);
 
@@ -51,25 +50,27 @@ const PostsList = ({navigation}) => {
 
 
 	const renderItem = ({ item }) => (
-		<PostCard post={item} onPostCardPress={() => onPostCardPress(item.id)}  />
+		<PostCard 
+			post={item} 
+			onPostCardPress={() => onPostCardPress(item.id)}  
+			onDoublePress={() => onDoublePress(item.id)}
+		/>
   	);
 
 	const onPostCardPress = (postId) => {
-		const timeDifference = new Date().getTime() - lastPress;
-		if (getRole() == ADMIN && timeDifference < 200) {
-		  	Alert.alert(
-				'Delete Post',
-				'Are you sure you want to delete this post?',
-				[
-					{ text: "Cancel", onPress: () => {}},
-					{ text: "Delete", onPress: () => onDeletePress(postId) }
-				]
-			);
-		} else {
-			// navigate to details screen
-			navigation.navigate('PostDetails', { postId })
-		}
-		setLastPress(new Date().getTime())
+		navigation.navigate('PostDetails', { postId })
+	}
+
+	const onDoublePress = (postId) => {
+		getRole() == ADMIN && 
+		Alert.alert(
+			'Delete Post',
+			'Are you sure you want to delete this post?',
+			[
+				{ text: "Cancel", onPress: () => {}},
+				{ text: "Delete", onPress: () => onDeletePress(postId) }
+			]
+		);
 	}
 
 	const onDeletePress = (postId) => {
@@ -122,16 +123,12 @@ const PostsList = ({navigation}) => {
 	);
 }
 
-const PostCard = ({post, onPostCardPress}) => {
+const PostCard = ({post, onPostCardPress, onDoublePress}) => {
 	return (
 		<View style={styles.cardContainer}>
 			<DoubleClick 
-				singleTap={() => {
-					console.log("single tap");
-				}}
-				doubleTap={() => {
-					console.log("double tap");
-				}}
+				singleTap={onPostCardPress}
+				doubleTap={onDoublePress}
 				delay={200}
 			>
 				<View style={styles.postOwnerNameContainer}>
@@ -153,7 +150,7 @@ const PostCard = ({post, onPostCardPress}) => {
 					</View>}
 					<View style={styles.bottomInfoContainer}>
 						<View style={styles.likesContainer}>
-							<Text>{post.likes} Likes</Text>
+							<Text style={styles.likeText}>{post.likes} Likes</Text>
 						</View>
 					</View>
 				</View>
