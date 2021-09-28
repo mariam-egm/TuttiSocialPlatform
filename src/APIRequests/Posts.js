@@ -58,8 +58,21 @@ const deletePost = (postId) => {
 	return axios.delete(url, options);
 }
 
+const getPost = (postId) => {
+	const url = `${DUMMY_API_URL}/post/${postId}`;
+
+	const options = {
+		headers: {
+			'app-id': APP_ID
+		}
+	}
+
+	return axios.get(url, options);
+}
+
 export {
 	getPosts,
 	createPost,
-	deletePost
+	deletePost,
+	getPost
 }

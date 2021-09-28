@@ -19,7 +19,7 @@ import styles from './style';
 import { ADMIN } from '../../constants/userRoles';
 import AuthContext from '../../context/contexts/authContext';
 
-const PostsList = () => {
+const PostsList = ({navigation}) => {
 	const [numberOfPages, setNumberOfPages] = useState(0);
 	const [lastPress, setLastPress] = useState(null);
 
@@ -66,6 +66,7 @@ const PostsList = () => {
 			);
 		} else {
 			// navigate to details screen
+			navigation.navigate('PostDetails', { postId })
 		}
 		setLastPress(new Date().getTime())
 	}

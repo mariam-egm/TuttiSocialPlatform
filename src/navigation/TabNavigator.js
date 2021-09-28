@@ -4,9 +4,9 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import Settings from '../screens/Settings';
-import Home from '../screens/Home';
 import NewPost from '../screens/NewPost';
 import colors from '../constants/colors';
+import { PostStackNavigator } from './StackNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,7 +20,7 @@ const BottomTabNavigator = () => {
 		>
 			<Tab.Screen 
 				name="Home" 
-				component={Home} 
+				component={PostStackNavigator} 
 				options={{
 					tabBarLabel: 'Home',
 					tabBarIcon: ({ color }) => (

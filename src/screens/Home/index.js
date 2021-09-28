@@ -14,7 +14,7 @@ import { setLoadingAction, setRetrievePostsTypeAction } from '../../context/acti
 import { DEFAULT } from '../../constants/getPostType';
 import styles from './style';
 
-const Home = () => {
+const Home = ({navigation}) => {
 	// Initialize state to send to useReducer
 	const initialState = {
 		posts: [],
@@ -57,7 +57,7 @@ const Home = () => {
 					<Tags />
 				</View>
 				<View style={styles.postsContainer}>
-					<PostsList />
+					<PostsList navigation={navigation} />
 				</View>
 			</View>
 		</PostsContext.Provider>
