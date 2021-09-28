@@ -1,13 +1,18 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
+import Loader from '../../components/Loader';
 import { PRIMARY, SECONDARY } from '../../constants/buttonTypes';
 import styles from './style';
 
-const GeneralButton = ({onPress, title, type}) => {
+const GeneralButton = ({onPress, title, type, loading}) => {
   return (
     <TouchableOpacity onPress={onPress} style={getStyle(type)}>
-		<Text style={getTitleStyle(type)}>{title}</Text>
+		{loading? 
+			<Loader /> 
+			:
+			<Text style={getTitleStyle(type)}>{title}</Text>
+		}
     </TouchableOpacity>
   );
 }
