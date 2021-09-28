@@ -63,7 +63,8 @@ const PostsList = () => {
 				renderItem={renderItem}
 				keyExtractor={item => item.id}
 				ListFooterComponent = {
-				!getLoading() && <GeneralButton 
+				!getLoading() && getPostSelector().length && !(getPostSelector().length%10) &&
+				<GeneralButton 
 					title="SEE MORE"
 					type={SECONDARY}
 					onPress={() => onSeeMorePress()}
