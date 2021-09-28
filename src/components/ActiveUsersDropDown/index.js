@@ -10,36 +10,42 @@ import {
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import styles from './style';
 import GeneralButton from '../../components/GeneralButton';
-import { SECONDARY } from '../../constants/buttonTypes';
+import Loader from '../../components/Loader';
 import { getActiveUsers } from '../../APIRequests/Users';
 import { getPosts as getPostsRequest } from '../../APIRequests/Posts';
 import PostsContext from '../../context/contexts/postContext';
+import { SECONDARY } from '../../constants/buttonTypes';
 import { BY_USER } from '../../constants/getPostType';
 import colors from '../../constants/colors';
+import styles from './style';
 
 const ActiveUsersDropDown = () => {
   const [showActiveUsersModal, setShowActiveUsersModal] = useState(false);
   const [activeUsers, setActiveUsers] = useState([]);
 
-  const { getPosts } = useContext(PostsContext);
+  const { getPosts, setLoading } = useContext(PostsContext);
 
   const renderItem = ({ item }) => (
     <ActiveUserRow user={item} onUserPress={() => onUserPress(item.id)} />
   );
 
   const onUserPress = (id) => {
+    setLoading(true)
+    setShowActiveUsersModal(false)
     getPostsRequest({
       pageNumber: 0,
       getPostsType: BY_USER,
       id
     })
     .then(response => {
+      setLoading(false)
       getPosts(response.data.data)
-      setShowActiveUsersModal(false)
     })
-    .catch(error => console.log('active user drop down error', error))
+    .catch(error => {
+      console.log('active user drop down error', error)
+      setLoading(false)
+    })
   }
 
   const onActiveUsersDropdownPress = () => {
@@ -75,6 +81,7 @@ const ActiveUsersDropDown = () => {
               renderItem={renderItem}
               keyExtractor={item => item.id}
               ItemSeparatorComponent={() => <Separator />}
+              ListEmptyComponent = {() => <Loader />}
             />
               <GeneralButton 
                 title="close"
