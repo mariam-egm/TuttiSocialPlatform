@@ -26,7 +26,7 @@ const ActiveUsersDropDown = () => {
 	const [showActiveUsersModal, setShowActiveUsersModal] = useState(false);
 	const [activeUsers, setActiveUsers] = useState([]);
 
-	const { getPosts, setLoading } = useContext(PostsContext);
+	const { getPosts, setLoading, setRetrievePostsType } = useContext(PostsContext);
 
 	const renderItem = ({ item }) => (
 		<ActiveUserRow user={item} onUserPress={() => onUserPress(item.id)} />
@@ -36,17 +36,18 @@ const ActiveUsersDropDown = () => {
 		setLoading(true)
 		setShowActiveUsersModal(false)
 		getPostsRequest({
-		pageNumber: 0,
-		getPostsType: BY_USER,
-		id
+			pageNumber: 0,
+			getPostsType: BY_USER,
+			id
 		})
 		.then(response => {
-		setLoading(false)
-		getPosts(response.data.data)
+			setLoading(false)
+			getPosts(response.data.data)
+			setRetrievePostsType({type: BY_USER, id})
 		})
 		.catch(error => {
-		console.log('active user drop down error', error)
-		setLoading(false)
+			console.log('active user drop down error', error)
+			setLoading(false)
 		})
 	}
 
@@ -91,12 +92,12 @@ const ActiveUsersDropDown = () => {
 const ActiveUserRow = ({user, onUserPress}) => {
   return (
     <Pressable 
-      style={styles.userRowContainer}
-      onPress={onUserPress}
+		style={styles.userRowContainer}
+		onPress={onUserPress}
     >
       <Image
-        style={styles.userPicture}
-        source={{uri:user.picture}}
+			style={styles.userPicture}
+			source={{uri:user.picture}}
       />
       <Text style={styles.userName}>{user.firstName} {user.lastName}</Text>
     </Pressable>
@@ -104,12 +105,12 @@ const ActiveUserRow = ({user, onUserPress}) => {
 }
 
 const Separator = () => {
-  return (
-    <View style={styles.separatorContainer}>
-      <View style={styles.separator} >
-      </View>
-    </View>
-  )
+	return (
+		<View style={styles.separatorContainer}>
+			<View style={styles.separator} >
+			</View>
+		</View>
+	)
 }
 
 export default ActiveUsersDropDown;

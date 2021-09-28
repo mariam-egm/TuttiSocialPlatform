@@ -19,6 +19,8 @@ const PostsList = () => {
 		getPosts, 
 		getMorePosts, 
 		getPostSelector,
+		getRetrievePostsType,
+		getRetrievePostTypeId,
 		getLoading,
 		setLoading
 	} = useContext(PostsContext);
@@ -43,10 +45,15 @@ const PostsList = () => {
 
 	const onSeeMorePress = () => {
 		setLoading(true)
-		getPostsRequest({ pageNumber: numberOfPages + 1})
+		getPostsRequest({ 
+			pageNumber: numberOfPages + 1, 
+			getPostsType: getRetrievePostsType(),
+			id: getRetrievePostTypeId() 
+		})
 		.then(response => {
 			getMorePosts(response.data.data)
-			setNumberOfPages(numberOfPages + 1)
+			const numberOfPagesRendered = getPostSelector().length <= 10 ? 1 : numberOfPages + 1;  
+			setNumberOfPages(numberOfPagesRendered)
 			setLoading(false)
 		})
 		.catch(error => {

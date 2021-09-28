@@ -1,7 +1,8 @@
 import { SET_LOADING } from '../../constants';
 import { 
 	GET_POSTS,
-	GET_MORE_POSTS 
+	GET_MORE_POSTS, 
+	SET_RETRIEVE_TYPE
 } from '../../constants/postActionTypes';
 
 const postsReducer = (prevState, action) => {
@@ -25,6 +26,12 @@ const postsReducer = (prevState, action) => {
 			return {
 				...prevState,
 				isLoading: action.payload.loading
+			}
+		case SET_RETRIEVE_TYPE:
+			return {
+				...prevState,
+				retrievePostsType: action.payload.type,
+				retreivePostTypeId: action.payload.id
 			}
 		default:
 			return {
