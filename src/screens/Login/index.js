@@ -78,6 +78,7 @@ const LoginForm = () => {
 			})
 			.catch(error => {
 				//handle errors
+				setLoading(false);
 				Snackbar.show({
 					text: error.response.data.error,
 					duration: Snackbar.LENGTH_SHORT,
@@ -86,50 +87,50 @@ const LoginForm = () => {
 		}
 	}
 
-  return (
-    <>
-		<View style={styles.inputFieldContainer}>
-			<TextInput
-				style={styles.input}
-				onChangeText={onEmailChange}
-				value={email}
-				placeholder={'Email'}
+	return (
+		<>
+			<View style={styles.inputFieldContainer}>
+				<TextInput
+					style={styles.input}
+					onChangeText={onEmailChange}
+					value={email}
+					placeholder={'Email'}
+				/>
+				{/** show error when there is an error from validator */}
+				{isFieldInError('email') && getErrorsInField('email').map((errorMessage, index) => 
+				<Text key={index} style={styles.errorText}>{errorMessage}</Text>
+				)}
+			</View>
+			<View style={styles.inputFieldContainer}>
+				<TextInput
+					style={styles.input}
+					onChangeText={onPasswordChange}
+					value={password}
+					placeholder={'Password'}
+					secureTextEntry={true}
+				/>
+				{/** show error when there is an error from validator */}
+				{isFieldInError('password') && getErrorsInField('password').map(errorMessage => 
+				<Text style={styles.errorText}>{errorMessage}</Text>
+				)}
+			</View>
+			<GeneralButton 
+				title='LOGIN' 
+				type={PRIMARY}
+				onPress={() => onLoginPress(email, password, signIn)}
+				loading={loading} 
 			/>
-			{/** show error when there is an error from validator */}
-			{isFieldInError('email') && getErrorsInField('email').map((errorMessage, index) => 
-			<Text key={index} style={styles.errorText}>{errorMessage}</Text>
-			)}
-		</View>
-		<View style={styles.inputFieldContainer}>
-			<TextInput
-				style={styles.input}
-				onChangeText={onPasswordChange}
-				value={password}
-				placeholder={'Password'}
-				secureTextEntry={true}
-			/>
-			{/** show error when there is an error from validator */}
-			{isFieldInError('password') && getErrorsInField('password').map(errorMessage => 
-			<Text style={styles.errorText}>{errorMessage}</Text>
-			)}
-		</View>
-		<GeneralButton 
-			title='LOGIN' 
-			type={PRIMARY}
-			onPress={() => onLoginPress(email, password, signIn)}
-			loading={loading} 
-		/>
-		<Popup showPopup={showWelcomePopup} type={SCREEN_CENTER}>
-			<Text style={styles.welcomeText}>Welcome </Text>
-			<Text style={styles.emailText}>{email} </Text>
-			<Text style={styles.welcomeText}>to Tutti!</Text>
-			<Image
-				source={images.celebrate}
-				style={styles.welcomeImage}
-			/>
-		</Popup>
-    </>
-  )
+			<Popup showPopup={showWelcomePopup} type={SCREEN_CENTER}>
+				<Text style={styles.welcomeText}>Welcome </Text>
+				<Text style={styles.emailText}>{email} </Text>
+				<Text style={styles.welcomeText}>to Tutti!</Text>
+				<Image
+					source={images.celebrate}
+					style={styles.welcomeImage}
+				/>
+			</Popup>
+		</>
+	)
 }
 
 export default Login;
