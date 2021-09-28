@@ -4,10 +4,10 @@ import {
 	SIGN_OUT 
 } from '../../constants/authActionTypes';
 
-const signInAction = (token) => {
+const signInAction = (token, userRole) => {
 	return {
 		type: SIGN_IN,
-		payload: { token }
+		payload: { token, userRole }
 	}
 }
 
@@ -17,10 +17,10 @@ const signOutAction = () => {
 	}
 }
 
-const restoreTokenAction = (token) => {
+const restoreTokenAction = (token, userRole) => {
 	return {
 		type: RESTORE_TOKEN,
-		payload: { token }
+		payload: { token, userRole }
 	}
 }
 

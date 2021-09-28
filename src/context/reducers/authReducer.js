@@ -1,5 +1,5 @@
 import { 
-  RESTORE_TOKEN, 
+  RESTORE_TOKEN,
   SIGN_IN, 
   SIGN_OUT 
 } from '../../constants/authActionTypes';
@@ -10,17 +10,20 @@ const authReducer = (prevState, action) => {
       return {
         ...prevState,
         userToken: action.payload.token,
+        userRole: action.payload.userRole,
         isLoading: false,
       };
     case SIGN_IN:
       return {
         ...prevState,
         userToken: action.payload.token,
+        userRole: action.payload.userRole
       };
     case SIGN_OUT:
       return {
         ...prevState,
         userToken: null,
+        userRole: ''
       };
   }
 }

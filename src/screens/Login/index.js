@@ -13,6 +13,7 @@ import { SCREEN_CENTER } from '../../constants/popupType';
 import { PRIMARY } from '../../constants/buttonTypes';
 import images from '../../constants/images';
 import styles from './style';
+import { ADMIN, NORMAL_USER } from '../../constants/userRoles';
 
 const Login = () => {
 	return (
@@ -56,16 +57,19 @@ const LoginForm = () => {
 		} else {
 			login(email, password)
 			.then(response => {
+				// Calculate role
+				const role = email === 'michael.lawson@reqres.in' ? ADMIN : NORMAL_USER;
 				// Save token and user data in async storage
 				AsyncStorage.setItem('userToken', response.data.token)
 				AsyncStorage.setItem('userEmail', email)
+				AsyncStorage.setItem('userRole', role)
 				.then(() => {
 					setLoading(false)
 					// show Welcome Popup and hide it after 4 seconds
 					setShowWelcomePopup(true)
 					setTimeout(() => setShowWelcomePopup(false), 2000);
 					// dispatch signIn action to save token in context(global state)
-					setTimeout(() => signIn(response.data.token), 2000);
+					setTimeout(() => signIn(response.data.token, role), 2000);
 				})
 				.catch(e => {
 					// handle error
