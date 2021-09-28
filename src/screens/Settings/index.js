@@ -18,7 +18,7 @@ const Settings = () => {
 		<View style={styles.container}>
 			<Text style={styles.title}>Settings</Text>
 			<View style={styles.body}>
-				<Text style={styles.mainMessage}>We are always happy to have you with Tutti!</Text>
+				<Text style={styles.mainMessage}>We are always happy to have you with us!</Text>
 				<Text style={styles.logoutQuestion}>Are you sure you want to logout?</Text>
 				<GeneralButton 
 				title="Logout"
