@@ -62,6 +62,13 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		fontSize: 20,
 		marginVertical: 20
+	},
+	noPostsText: {
+		color: colors.primaryInk,
+		fontWeight: 'bold',
+		fontSize: 20,
+		textAlign: 'center',
+		marginVertical: 20
 	}
 });
 

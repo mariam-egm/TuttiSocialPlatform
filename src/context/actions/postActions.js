@@ -2,6 +2,7 @@ import {
 	GET_POSTS,
 	GET_MORE_POSTS
 } from '../../constants/postActionTypes';
+import { SET_LOADING } from '../../constants';
 
 const getPostsAction = (posts) => {
 	return {
@@ -17,7 +18,15 @@ const getMorePostsAction = (newPosts) => {
 	}
 }
 
+const setLoadingAction = (loading) => {
+	return {
+		type: SET_LOADING,
+		payload: { loading }
+	}
+}
+
 export {
 	getMorePostsAction,
-	getPostsAction
+	getPostsAction,
+	setLoadingAction
 }

@@ -1,3 +1,4 @@
+import { SET_LOADING } from '../../constants';
 import { 
 	GET_POSTS,
 	GET_MORE_POSTS 
@@ -20,6 +21,11 @@ const postsReducer = (prevState, action) => {
 				],
 				isLoading: false,
 			};
+		case SET_LOADING:
+			return {
+				...prevState,
+				isLoading: action.payload.loading
+			}
 		default:
 			return {
 				...prevState,
