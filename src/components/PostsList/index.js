@@ -4,17 +4,27 @@ import {
 	FlatList, 
 	TouchableOpacity, 
 	Image,
-	View 
+	View,
+	Alert 
 } from 'react-native';
 
 import GeneralButton from '../../components/GeneralButton';
-import { getPosts as getPostsRequest } from '../../APIRequests/Posts';
+import { 
+	getPosts as getPostsRequest,
+	deletePost as deletePostRequest
+} from '../../APIRequests/Posts';
 import { SECONDARY } from '../../constants/buttonTypes';
 import PostsContext from '../../context/contexts/postContext';
 import styles from './style';
+import { ADMIN } from '../../constants/userRoles';
+import AuthContext from '../../context/contexts/authContext';
 
 const PostsList = () => {
 	const [numberOfPages, setNumberOfPages] = useState(0);
+	const [lastPress, setLastPress] = useState(null);
+
+	const { getRole } = useContext(AuthContext);
+
 	const { 
 		getPosts, 
 		getMorePosts, 
@@ -40,8 +50,31 @@ const PostsList = () => {
 
 
 	const renderItem = ({ item }) => (
-		<PostCard post={item} />
+		<PostCard post={item} onPostCardPress={() => onPostCardPress(item.id)}  />
   	);
+
+	const onPostCardPress = (postId) => {
+		const timeDifference = new Date().getTime() - lastPress;
+		if (getRole() == ADMIN && timeDifference < 200) {
+		  	Alert.alert(
+				'Delete Post',
+				'Are you sure you want to delete this post?',
+				[
+					{ text: "Cancel", onPress: () => {}},
+					{ text: "Delete", onPress: () => onDeletePress(postId) }
+				]
+			);
+		} else {
+			// navigate to details screen
+		}
+		setLastPress(new Date().getTime())
+	}
+
+	const onDeletePress = (postId) => {
+		deletePostRequest(postId)
+		.then(response => console.log(response))
+		.catch(error => console.log("delete post error"))
+	}
 
 	const onSeeMorePress = () => {
 		setLoading(true)
@@ -87,9 +120,12 @@ const PostsList = () => {
 	);
 }
 
-const PostCard = ({post}) => {
+const PostCard = ({post, onPostCardPress}) => {
 	return (
-		<TouchableOpacity style={styles.cardContainer}>
+		<TouchableOpacity 
+			style={styles.cardContainer}
+			onPress={onPostCardPress}
+		>
 			<View style={styles.postOwnerNameContainer}>
 				<View style={styles.ownerImageContainer}>
 					<Image
@@ -109,7 +145,7 @@ const PostCard = ({post}) => {
 				</View>}
 				<View style={styles.bottomInfoContainer}>
 					<View style={styles.likesContainer}>
-						<Text>{post.likes} Likes</Text>
+						<Text style={styles.likeText}>{post.likes} Likes</Text>
 					</View>
 				</View>
 			</View>

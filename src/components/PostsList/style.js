@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
 	},
 	ownerName: {
 		fontSize: 20,
-		fontWeight: 'bold'
+		fontWeight: 'bold',
+		color: colors.white
 	},
 	postText: {
 		color: colors.secondaryInk,
@@ -69,6 +70,9 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		textAlign: 'center',
 		marginVertical: 20
+	},
+	likeText: {
+		color: colors.white
 	}
 });
 
