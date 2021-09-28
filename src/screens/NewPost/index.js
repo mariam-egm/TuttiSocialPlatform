@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
 import { useValidation } from 'react-native-form-validator';
 
@@ -8,7 +8,8 @@ import { createPost } from '../../APIRequests/Posts';
 import styles from './style';
 
 const NewPost = ({navigation}) => {
-	const [text, setText] = React.useState('');
+	const [text, setText] = useState('');
+	const [loading, setLoading] = useState(false);
 
 	const { 
 		validate, 
@@ -21,15 +22,22 @@ const NewPost = ({navigation}) => {
 	const onCreatePostPress = () => {
 		// validate post form
 		// send createPost API request when there are no errors
-		if(validate(postSchema)){
-		createPost({text})
-		.then(response => {
-			// navigate to Home after success
-			setText('')
-			navigation.jumpTo('Home')
-		} 
-		)
-		.catch(error => console.log(error.response))
+		setLoading(true)
+		if(!validate(postSchema)){
+			setLoading(false)
+		} else {
+			createPost({text})
+			.then(response => {
+				// navigate to Home after success
+				setText('')
+				setLoading(false)
+				navigation.jumpTo('Home')
+				
+			})
+			.catch(error => {
+				console.log(error.response)
+				setLoading(false);
+			})
 		}
 	}
 
@@ -50,6 +58,7 @@ const NewPost = ({navigation}) => {
 			<GeneralButton 
 				title="Create Post"
 				onPress={onCreatePostPress}
+				loading={loading}
 			/>
 		</View>
 	);

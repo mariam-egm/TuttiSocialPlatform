@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useValidation } from 'react-native-form-validator';
@@ -29,8 +29,9 @@ const Login = () => {
 const LoginForm = () => {
 	const { signIn } = useContext(AuthContext);
 
-	const [email, onEmailChange] = React.useState('');
-	const [password, onPasswordChange] = React.useState('');
+	const [email, onEmailChange] = useState('');
+	const [password, onPasswordChange] = useState('');
+	const [loading, setLoading] = useState(false);
 
 	const { 
 		validate, 
@@ -45,16 +46,23 @@ const LoginForm = () => {
 	// validate login form
     // returns true when fields are valid
     // send login API request when validate returns true
-    if(validate(loginSchema)){
+	setLoading(true)
+	if(!validate(loginSchema)){
+		setLoading(false)
+	} else {
 		login(email, password)
 		.then(response => {
 			// Save token in async storage
 			AsyncStorage.setItem('userToken', response.data.token)
-			.then(() => 
-			// dispatch signIn action to save token in context(global state)
-			signIn(response.data.token)
-			)
-			.catch(e => console.log("async storage error", e))
+			.then(() => {
+				// dispatch signIn action to save token in context(global state)
+				setLoading(false)
+				signIn(response.data.token)
+			})
+			.catch(e => {
+				// handle error
+				setLoading(false)
+			})
 		})
 		.catch(error => {
 			//handle errors
@@ -76,7 +84,7 @@ const LoginForm = () => {
 			placeholder={'Email'}
 			/>
 			{isFieldInError('email') && getErrorsInField('email').map((errorMessage, index) => 
-			<Text style={styles.errorText} key={index}>{errorMessage}</Text>
+			<Text key={index} style={styles.errorText}>{errorMessage}</Text>
 			)}
 		</View>
 		<View style={styles.inputFieldContainer}>
@@ -95,7 +103,8 @@ const LoginForm = () => {
 		<GeneralButton 
 			title='LOGIN' 
 			type={PRIMARY}
-			onPress={() => onLoginPress(email, password, signIn)} 
+			onPress={() => onLoginPress(email, password, signIn)}
+			loading={loading} 
 		/>
     </>
   )

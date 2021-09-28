@@ -18,14 +18,15 @@ import { addIndex } from '../../utils/FlatListUtil';
 import { getPosts as getPostsRequest } from '../../APIRequests/Posts';
 import PostsList from '../../components/PostsList';
 import ActiveUsersDropDown from '../../components/ActiveUsersDropDown';
-import styles from './style';
 import PostsContext from '../../context/contexts/postContext';
 import postsReducer from '../../context/reducers/postsReducer';
 import {
   getPostsAction,
   getMorePostsAction
 } from '../../context/actions/postActions';
+import { setLoadingAction } from '../../context/actions/postActions';
 import { BY_TAG } from '../../constants/getPostType';
+import styles from './style';
 
 const Home = () => {
 	const initialState = {
@@ -42,9 +43,11 @@ const Home = () => {
 			getMorePosts: (posts) => {
 				dispatch(getMorePostsAction(posts));
 			},
-			getPostSelector: () => { 
-				return state.posts
-			}  
+			getPostSelector: () => state.posts,
+			setLoading: (loading) => {
+				dispatch(setLoadingAction(loading))
+			},
+			getLoading: () => state.isLoading
 		}),[state]
 	);
 
@@ -67,7 +70,7 @@ const Home = () => {
 
 const Tags = () => {
 	const [tags, setTags] = useState([]);
-	const { getPosts } = useContext(PostsContext);
+	const { getPosts, setLoading, getLoading } = useContext(PostsContext);
 
 	useEffect(() => {
 	getTags()
@@ -76,37 +79,45 @@ const Tags = () => {
 	}, []);
 
 	const renderItem = ({ item }) => (
-		<TagCard title={item.name} onTagPress={() => onTagPress(item.name)} />
+		<TagCard disabled={getLoading()} title={item.name} onTagPress={() => onTagPress(item.name)} />
 	);
 
 	const onTagPress = (tagName) => {
-	getPostsRequest({
-		pageNumber: 0,
-		getPostsType: BY_TAG,
-		id: tagName
-	})
-		.then(response => getPosts(response.data.data))
-		.catch(error => console.log("from home error", error))
+		setLoading(true)
+		getPostsRequest({
+			pageNumber: 0,
+			getPostsType: BY_TAG,
+			id: tagName
+		})
+		.then(response => {
+			getPosts(response.data.data)
+			setLoading(false)
+		})
+		.catch(error => {
+			console.log("from home error", error)
+			setLoading(false)
+		})
 	}
 
   return (
 	<>
 		<Text style={styles.tagsTitle}>Tags</Text> 
-			<FlatList
-				data={tags}
-				renderItem={renderItem}
-				keyExtractor={item => item.id}
-				horizontal
-			/>
+		<FlatList
+			data={tags}
+			renderItem={renderItem}
+			keyExtractor={item => item.id}
+			horizontal
+		/>
 	</>
   )
 }
 
-const TagCard = ({title, onTagPress}) => {
+const TagCard = ({title, onTagPress, disabled}) => {
   return (
 	<TouchableOpacity 
 		style={styles.tagCardContainer}
 		onPress={onTagPress}
+		disabled={disabled}
 	>
 		<Text style={styles.tagName}>{title}</Text>
 	</TouchableOpacity>

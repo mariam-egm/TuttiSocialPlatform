@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center'		
 	},
 	tagsContainer: {
-		flex: 1,
+		flex: 0.85,
 	},
 	postsContainer: {
 		flex: 5,
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 		backgroundColor: colors.primaryColor,
 		justifyContent: 'center',
 		alignItems: 'center',
-		padding: 5,
+		padding: 10,
 		marginHorizontal: 5,
 		borderRadius: 10
 	},
