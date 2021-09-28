@@ -1,0 +1,2 @@
+export const SCREEN_END = 'SCREEN_END'
+export const SCREEN_CENTER = 'SCREEN_CENTER'
