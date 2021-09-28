@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, Image, Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 
-import { addIndex } from '../../utils/FlatListUtil';
 import { getPost } from '../../APIRequests/Posts';
 import styles from './style';
 
@@ -18,7 +17,7 @@ const PostDetails = ({route}) => {
 	return (
         <View style={styles.container}>
             <View style={styles.ownerContainer}>
-                {post.owner.picture && 
+                {!!post.owner.picture && 
                 <Image
                     source={{uri: post.owner.picture}}
                     style={styles.personalImage}
@@ -27,10 +26,10 @@ const PostDetails = ({route}) => {
             </View>
             <View style={styles.postContainer}>
                 <Text style={styles.postText}>{post.text}</Text>
-                <Image
+                {!!post.image && <Image
                     source={{uri: post.image}}
                     style={styles.postImage}
-                />
+                />}
             </View>
             <View style={styles.likesContainer}>
                 <Text style={styles.likesText}>{post.likes} Likes</Text>
