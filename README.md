@@ -3,7 +3,7 @@ A social-like-platform mobile application.
 
 ## Table of contents
 * [Installation](#Installation)
-* [Run the Project on Android environment](#Run the Project on Android environment)
+* [Run-the-Project-on-Android-Environment](#Run-the-Project-on-Android-Environment)
 
 ## Installation
 - Please see the appropriate guide for your environment from [React Native documentation](https://reactnative.dev/docs/environment-setup)
