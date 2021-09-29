@@ -2,6 +2,7 @@ import axios from 'axios';
 import { APP_ID, DUMMY_API_URL } from '@env';
 
 const getActiveUsers = () => {
+	// get all active users
 	const url = `${DUMMY_API_URL}/user`;
 	const options = {
 		headers: {

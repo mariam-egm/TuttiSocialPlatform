@@ -8,6 +8,7 @@ import colors from '../constants/colors';
 
 const Stack = createNativeStackNavigator();
 
+// Auth Stach navigator consists of Login Screen
 const AuthStackNavigator = () => {
 	return (
 		<Stack.Navigator
@@ -20,6 +21,7 @@ const AuthStackNavigator = () => {
 	);
 }
   
+// PostStack Navigator consists of All Posts screen and PostDetails screen
 const PostStackNavigator = () => {
 	return (
 		<Stack.Navigator>

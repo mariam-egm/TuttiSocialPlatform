@@ -10,7 +10,11 @@ const Settings = () => {
 	const { signOut } = useContext(AuthContext);
 
 	const onSignOutPress = async () => {
+		// remove user data from async storage
+		// dispatch signOut action to remove token and role from state
 		await AsyncStorage.removeItem('userToken')
+		await AsyncStorage.removeItem('userEmail')
+		await AsyncStorage.removeItem('userRole')
 		signOut()
 	}
 

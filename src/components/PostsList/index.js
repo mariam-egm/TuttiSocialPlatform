@@ -20,10 +20,12 @@ import AuthContext from '../../context/contexts/authContext';
 import styles from './style';
 
 const PostsList = ({navigation}) => {
+	// numberOfPages changes with every time seeMore is pressed
+	// or on refresh
 	const [numberOfPages, setNumberOfPages] = useState(0);
-
+	// getRole from authContext
 	const { getRole } = useContext(AuthContext);
-
+	// getters and setters from posts context - (dispatchers and selectors)
 	const { 
 		getPosts, 
 		getMorePosts, 
@@ -35,6 +37,11 @@ const PostsList = ({navigation}) => {
 	} = useContext(PostsContext);
 
 	useEffect(() => {
+		/**
+		 * get default posts(no types)
+		 * on success, dispatch getPosts action 
+		 * to put response's data (posts) in global state/context
+		 */
 		setLoading(true)
 		getPostsRequest({})
 		.then(response => {
@@ -57,10 +64,13 @@ const PostsList = ({navigation}) => {
   	);
 
 	const onPostCardPress = postId => {
+		// navigate to post details
 		navigation.navigate('PostDetails', { postId })
 	}
 
 	const onDoublePress = postId => {
+		// if the user's role is admin => enable delete feature
+		// show Alert with onDeletePress function
 		getRole() == ADMIN && 
 		Alert.alert(
 			'Delete Post',
@@ -77,6 +87,7 @@ const PostsList = ({navigation}) => {
 		deletePostRequest(postId)
 		.then(response => {
 			setNumberOfPages(0);
+			// retrieve posts after deleting a post
 			getPostsRequest({
 				pageNumber: numberOfPages,
 				getPostsType: getRetrievePostsType(),
@@ -84,6 +95,7 @@ const PostsList = ({navigation}) => {
 			})
 			.then(response => {
 				setLoading(false);
+				// dispatch getPosts action with posts
 				getPosts(response.data.data);
 				setLoading(false);
 			})
@@ -97,6 +109,12 @@ const PostsList = ({navigation}) => {
 
 	const onSeeMorePress = () => {
 		setLoading(true)
+		/**
+		 * get more posts by incrementing numberOfPages by one
+		 * get those posts depending on the retrievePostType
+		 * could be default, BY_USER or BY_TAG
+		 * send postTypeId 
+		 */
 		getPostsRequest({ 
 			pageNumber: numberOfPages + 1, 
 			getPostsType: getRetrievePostsType(),
@@ -104,7 +122,14 @@ const PostsList = ({navigation}) => {
 		})
 		.then(response => {
 			getMorePosts(response.data.data)
+			/**
+			 * if posts retrieved for a specific type(BY_USER, BY_TAG)
+			 * for the first time, length of posts would be <= 10
+			 * then the numberOfPages should be reset to 1
+			 * else, increment by 1
+			*/ 
 			const numberOfPagesRendered = getPostSelector().length <= 10 ? 1 : numberOfPages + 1;  
+			// setting numberOfPages with new number
 			setNumberOfPages(numberOfPagesRendered)
 			setLoading(false)
 		})
@@ -121,6 +146,10 @@ const PostsList = ({navigation}) => {
 				data={getPostSelector()}
 				renderItem={renderItem}
 				keyExtractor={item => item.id}
+				/** 
+				 * display 'seeMore' only when there is no loading 
+				 * and there are posts and their length % 10 == 0 
+				 */
 				ListFooterComponent = {
 				!getLoading() && getPostSelector().length && !(getPostSelector().length%10) &&
 				<GeneralButton 

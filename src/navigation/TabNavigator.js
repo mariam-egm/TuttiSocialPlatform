@@ -10,6 +10,7 @@ import { PostStackNavigator } from './StackNavigator';
 
 const Tab = createBottomTabNavigator();
 
+// Bottom tab navigator consists of Home, New Post, Settings screens
 const BottomTabNavigator = () => {
 	return (
 		<Tab.Navigator

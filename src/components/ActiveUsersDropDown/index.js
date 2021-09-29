@@ -3,8 +3,7 @@ import {
   View, 
   Text, 
   TouchableOpacity, 
-  FlatList, 
-  Modal,
+  FlatList,
   Image,
   Pressable
 } from 'react-native';
@@ -25,7 +24,7 @@ import styles from './style';
 const ActiveUsersDropDown = () => {
 	const [showActiveUsersModal, setShowActiveUsersModal] = useState(false);
 	const [activeUsers, setActiveUsers] = useState([]);
-
+	// setters and getters of postsContext
 	const { getPosts, setLoading, setRetrievePostsType } = useContext(PostsContext);
 
 	const renderItem = ({ item }) => (
@@ -33,6 +32,10 @@ const ActiveUsersDropDown = () => {
 	);
 
 	const onUserPress = (id) => {
+		// OnUserPress:
+		//---------------
+		// setLoading to true, hide modal and make get posts request
+		// get posts list by user, with userId
 		setLoading(true)
 		setShowActiveUsersModal(false)
 		getPostsRequest({
@@ -43,15 +46,18 @@ const ActiveUsersDropDown = () => {
 		.then(response => {
 			setLoading(false)
 			getPosts(response.data.data)
+			// setting retrieve post type with 'BY_USER'
 			setRetrievePostsType({type: BY_USER, id})
 		})
 		.catch(error => {
+			// handle error
 			console.log('active user drop down error', error)
 			setLoading(false)
 		})
 	}
 
 	const onActiveUsersDropdownPress = () => {
+		// show modal with active users
 		setShowActiveUsersModal(true)
 		getActiveUsers()
 		.then(response => setActiveUsers(response.data.data))

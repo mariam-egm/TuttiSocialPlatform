@@ -6,6 +6,7 @@ const getPosts = ({ pageNumber = 0, getPostsType, id }) => {
 	// let default path for retrieving posts is 'post'
 	// check on the type the user would like to retrieve the posts with
 	// set the path depending on the getPostsType
+
 	let path = 'post';
 	switch(getPostsType) {
 		case BY_USER:
@@ -15,6 +16,10 @@ const getPosts = ({ pageNumber = 0, getPostsType, id }) => {
 			path = `tag/${id}/post`
 			break;		
 	}
+
+	// pageNumber is added to url, to enable "seeMore" feature
+	// "seeMore" send pageNumber requested for more posts
+	// limit is set to 10
 	const url = `${DUMMY_API_URL}/${path}?page=${pageNumber}&limit=10`;
 
 	const options = {
@@ -29,7 +34,7 @@ const getPosts = ({ pageNumber = 0, getPostsType, id }) => {
 const createPost = ({text}) => {
 	const url = `${DUMMY_API_URL}/post/create`;
 	// get userId from async storage when provided in login 
-	// Using static id from dummyapi users for now
+	// Using static userId from dummyapi users for now
 	// Please note: 
 	// Dummyapi is used for creation post
 	// Reqres is used for auth and does not provide user data
@@ -61,6 +66,7 @@ const deletePost = postId => {
 }
 
 const getPost = postId => {
+	// getPost details using postId
 	const url = `${DUMMY_API_URL}/post/${postId}`;
 
 	const options = {

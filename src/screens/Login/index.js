@@ -65,7 +65,7 @@ const LoginForm = () => {
 				AsyncStorage.setItem('userRole', role)
 				.then(() => {
 					setLoading(false)
-					// show Welcome Popup and hide it after 4 seconds
+					// show Welcome Popup and hide it after 2 seconds
 					setShowWelcomePopup(true)
 					setTimeout(() => setShowWelcomePopup(false), 2000);
 					// dispatch signIn action to save token in context(global state)
@@ -96,7 +96,7 @@ const LoginForm = () => {
 					value={email}
 					placeholder={'Email'}
 				/>
-				{/** show error when there is an error from validator */}
+				{/** show error when there are errors from validator */}
 				{isFieldInError('email') && getErrorsInField('email').map((errorMessage, index) => 
 				<Text key={index} style={styles.errorText}>{errorMessage}</Text>
 				)}
@@ -109,7 +109,7 @@ const LoginForm = () => {
 					placeholder={'Password'}
 					secureTextEntry={true}
 				/>
-				{/** show error when there is an error from validator */}
+				{/** show error when there are errors from validator */}
 				{isFieldInError('password') && getErrorsInField('password').map(errorMessage => 
 				<Text style={styles.errorText}>{errorMessage}</Text>
 				)}

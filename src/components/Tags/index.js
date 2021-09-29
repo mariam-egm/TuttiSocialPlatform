@@ -21,9 +21,11 @@ const Tags = () => {
 	} = useContext(PostsContext);
 
 	useEffect(() => {
+		// retrieve tags
 		setTagLoading(true);
 		getTags()
 		.then(response => {
+			// adding index is needed for rendering list with unique key
 			setTags(addIndex(response.data.data));
 			setTagLoading(false);
 		})
@@ -39,13 +41,20 @@ const Tags = () => {
 
 	const onTagPress = (tagName) => {
 		setLoading(true)
+		// getPosts BY_TAG
 		getPostsRequest({
 			pageNumber: 0,
 			getPostsType: BY_TAG,
 			id: tagName
 		})
 		.then(response => {
+			// dispatch getPosts action to save posts in state
 			getPosts(response.data.data)
+			/**
+			 * setRetrieve Posts type 'BY_TAG' in state
+			 * if 'SeeMore' is pressed, it retreives posts
+			 * related to that tag
+			 */
 			setRetrievePostsType({type: BY_TAG, id: tagName})
 			setLoading(false)
 		})

@@ -9,6 +9,7 @@ const PostDetails = ({route}) => {
     const [post, setPost] = useState({owner: {}});
 
     useEffect(() => {
+        // get Post details
         getPost(postId)
         .then(response => setPost(response.data))
         .catch(error => {/** handle error */})

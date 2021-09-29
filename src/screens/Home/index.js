@@ -23,13 +23,13 @@ const Home = ({navigation}) => {
 		retreivePostTypeId: ''
 	}
 	
-	// Use useReducer from ReactJS
+	// Use useReducer, useContext from ReactJS
 	// Please note:
-	// Another implementation could have been using "Redux"
+	// Another implementation could have been done using "Redux"
 	// We would have had "containers" for screens containing props,
-	// using selectors(selecting values from global state)
-	// dispatching actions to change in the state
-	// Using mapStateToProps and mapDispatchToProps
+	// selectors(selecting values from global state)
+	// dispatcher, for actions to change in the state
+	// mapStateToProps and mapDispatchToProps
 	// Here I used context from ReactJS to be suitable
 	// with the simplicity of the project and the state
 	const [state, dispatch] = useReducer(postsReducer, initialState);
@@ -43,7 +43,6 @@ const Home = ({navigation}) => {
 			getLoading: () => state.isLoading,
 			getRetrievePostsType: () => state.retrievePostsType,
 			getRetrievePostTypeId: () => state.retreivePostTypeId
-			
 		}),[state]
 	);
 
