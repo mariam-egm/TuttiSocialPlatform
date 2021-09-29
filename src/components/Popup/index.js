@@ -3,8 +3,8 @@ import {
   View, 
   Modal
 } from 'react-native';
-import { SCREEN_CENTER, SCREEN_END } from '../../constants/popupType';
 
+import { SCREEN_CENTER, SCREEN_END } from '../../constants/popupType';
 import styles from './style';
 
 const Popup = ({children, showPopup, type}) => {
@@ -16,7 +16,7 @@ const Popup = ({children, showPopup, type}) => {
                 visible={showPopup}
             >
                 <View style={getContainerStyle(type)}>
-                    <View style={getModalViewStyle(type)}>
+                    <View style={styles.endModalView}>
                         {children}
                     </View>
                 </View>
@@ -31,15 +31,6 @@ const getContainerStyle = (type) => {
             return styles.endBottomView;
         case SCREEN_CENTER:
             return styles.centeredView;
-    }
-}
-
-const getModalViewStyle = (type) => {
-    switch(type) {
-        case SCREEN_END:
-            return styles.endModalView;
-        case SCREEN_CENTER:
-            return styles.endModalView;
     }
 }
 

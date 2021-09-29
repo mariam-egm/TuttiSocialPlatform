@@ -56,11 +56,11 @@ const PostsList = ({navigation}) => {
 		/>
   	);
 
-	const onPostCardPress = (postId) => {
+	const onPostCardPress = postId => {
 		navigation.navigate('PostDetails', { postId })
 	}
 
-	const onDoublePress = (postId) => {
+	const onDoublePress = postId => {
 		getRole() == ADMIN && 
 		Alert.alert(
 			'Delete Post',
@@ -72,7 +72,7 @@ const PostsList = ({navigation}) => {
 		);
 	}
 
-	const onDeletePress = (postId) => {
+	const onDeletePress = postId => {
 		setLoading(true);
 		deletePostRequest(postId)
 		.then(response => {

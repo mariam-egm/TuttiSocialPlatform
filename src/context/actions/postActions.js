@@ -5,14 +5,14 @@ import {
 } from '../../constants/postActionTypes';
 import { SET_LOADING } from '../../constants';
 
-const getPostsAction = (posts) => {
+const getPostsAction = posts => {
 	return {
 		type: GET_POSTS,
 		payload: { posts }
 	}
 }
 
-const getMorePostsAction = (newPosts) => {
+const getMorePostsAction = newPosts => {
 	return {
 		type: GET_MORE_POSTS,
 		payload: { newPosts }

@@ -3,6 +3,9 @@ import { APP_ID, DUMMY_API_URL } from '@env';
 import { BY_TAG, BY_USER } from '../constants/getPostType';
 
 const getPosts = ({ pageNumber = 0, getPostsType, id }) => {
+	// let default path for retrieving posts is 'post'
+	// check on the type the user would like to retrieve the posts with
+	// set the path depending on the getPostsType
 	let path = 'post';
 	switch(getPostsType) {
 		case BY_USER:
@@ -12,7 +15,6 @@ const getPosts = ({ pageNumber = 0, getPostsType, id }) => {
 			path = `tag/${id}/post`
 			break;		
 	}
-	//TODO: put 10 in contants
 	const url = `${DUMMY_API_URL}/${path}?page=${pageNumber}&limit=10`;
 
 	const options = {
@@ -27,7 +29,7 @@ const getPosts = ({ pageNumber = 0, getPostsType, id }) => {
 const createPost = ({text}) => {
 	const url = `${DUMMY_API_URL}/post/create`;
 	// get userId from async storage when provided in login 
-	// Using static id only for now
+	// Using static id from dummyapi users for now
 	// Please note: 
 	// Dummyapi is used for creation post
 	// Reqres is used for auth and does not provide user data
@@ -46,7 +48,7 @@ const createPost = ({text}) => {
 	return axios.post(url, data, options);
 }
 
-const deletePost = (postId) => {
+const deletePost = postId => {
 	const url = `${DUMMY_API_URL}/post/${postId}`;
 
 	const options = {
@@ -58,7 +60,7 @@ const deletePost = (postId) => {
 	return axios.delete(url, options);
 }
 
-const getPost = (postId) => {
+const getPost = postId => {
 	const url = `${DUMMY_API_URL}/post/${postId}`;
 
 	const options = {

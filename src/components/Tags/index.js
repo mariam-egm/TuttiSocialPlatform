@@ -3,10 +3,10 @@ import React,
 import { Text, TouchableOpacity, FlatList } from 'react-native';
 
 import { getTags } from '../../APIRequests/Tags';
-import { addIndex } from '../../utils/FlatListUtil';
 import { getPosts as getPostsRequest } from '../../APIRequests/Posts';
 import PostsContext from '../../context/contexts/postContext';
 import { BY_TAG } from '../../constants/getPostType';
+import { addIndex } from '../../utils/FlatListUtil';
 import styles from './style';
 
 const Tags = () => {
@@ -14,11 +14,11 @@ const Tags = () => {
 	const [tagLoading, setTagLoading] = useState(false);
 	
 	const { 
-        getPosts,
-        setLoading,
-        getLoading,
-        setRetrievePostsType
-    } = useContext(PostsContext);
+		getPosts,
+		setLoading,
+		getLoading,
+		setRetrievePostsType
+	} = useContext(PostsContext);
 
 	useEffect(() => {
 		setTagLoading(true);
@@ -45,8 +45,8 @@ const Tags = () => {
 			id: tagName
 		})
 		.then(response => {
-            getPosts(response.data.data)
-            setRetrievePostsType({type: BY_TAG, id: tagName})
+			getPosts(response.data.data)
+			setRetrievePostsType({type: BY_TAG, id: tagName})
 			setLoading(false)
 		})
 		.catch(error => {
@@ -56,17 +56,17 @@ const Tags = () => {
 	}
 
     return (
-        <>
-            <Text style={styles.tagsTitle}>Tags</Text> 
-            <FlatList
-                data={tags}
-                renderItem={renderItem}
-                keyExtractor={item => item.id}
-                horizontal
-                refreshing={tagLoading}
-                onRefresh={() => {}}
-            />
-        </>
+		<>
+			<Text style={styles.tagsTitle}>Tags</Text> 
+			<FlatList
+				data={tags}
+				renderItem={renderItem}
+				keyExtractor={item => item.id}
+				horizontal
+				refreshing={tagLoading}
+				onRefresh={() => {}}
+			/>
+		</>
     )
 }
 

@@ -12,8 +12,8 @@ import Popup from '../../components/Popup';
 import { SCREEN_CENTER } from '../../constants/popupType';
 import { PRIMARY } from '../../constants/buttonTypes';
 import images from '../../constants/images';
-import styles from './style';
 import { ADMIN, NORMAL_USER } from '../../constants/userRoles';
+import styles from './style';
 
 const Login = () => {
 	return (

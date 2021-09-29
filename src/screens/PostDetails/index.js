@@ -14,7 +14,7 @@ const PostDetails = ({route}) => {
         .catch(error => {/** handle error */})
     }, []);
 
-	return (
+    return (
         <View style={styles.container}>
             <View style={styles.ownerContainer}>
                 {!!post.owner.picture && 
@@ -35,7 +35,7 @@ const PostDetails = ({route}) => {
                 <Text style={styles.likesText}>{post.likes} Likes</Text>
             </View>
         </View>
-	);
+    );
 }
 
 export default PostDetails;

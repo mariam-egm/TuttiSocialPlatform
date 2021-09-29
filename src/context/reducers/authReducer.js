@@ -10,8 +10,7 @@ const authReducer = (prevState, action) => {
       return {
         ...prevState,
         userToken: action.payload.token,
-        userRole: action.payload.userRole,
-        isLoading: false,
+        userRole: action.payload.userRole
       };
     case SIGN_IN:
       return {

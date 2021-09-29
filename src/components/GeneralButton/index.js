@@ -6,18 +6,18 @@ import { PRIMARY, SECONDARY } from '../../constants/buttonTypes';
 import styles from './style';
 
 const GeneralButton = ({onPress, title, type, loading}) => {
-  return (
-    <TouchableOpacity onPress={onPress} style={getStyle(type)}>
-		{loading? 
-			<Loader /> 
-			:
-			<Text style={getTitleStyle(type)}>{title}</Text>
-		}
-    </TouchableOpacity>
-  );
+	return (
+		<TouchableOpacity onPress={onPress} style={getStyle(type)}>
+			{loading? 
+				<Loader /> 
+				:
+				<Text style={getTitleStyle(type)}>{title}</Text>
+			}
+		</TouchableOpacity>
+	);
 }
 
-const getStyle = (type) => {
+const getStyle = type => {
 	switch(type) {
 		case PRIMARY:
 			return styles.primaryContainer
@@ -28,7 +28,7 @@ const getStyle = (type) => {
 	}
 } 
 
-const getTitleStyle = (type) => {
+const getTitleStyle = type => {
 	switch(type) {
 		case PRIMARY:
 			return styles.primaryTitle

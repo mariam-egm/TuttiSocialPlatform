@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import GeneralButton from '../../components/GeneralButton';
-import Loader from '../../components/Loader';
+import GeneralButton from '../GeneralButton';
+import Loader from '../Loader';
 import Popup from '../Popup';
 import { getActiveUsers } from '../../APIRequests/Users';
 import { getPosts as getPostsRequest } from '../../APIRequests/Posts';
@@ -58,50 +58,50 @@ const ActiveUsersDropDown = () => {
 		.catch(error => console.log('active users drop down error', error))
 	}
 
-  return (
-    <>
-		<TouchableOpacity 
-			onPress={onActiveUsersDropdownPress}
-			style={styles.showUsersContainer}
-		>
-			<Text style={styles.showUsersTitle}>Active Users</Text>
-			<AntDesign 
-				name='caretdown'
-				color={colors.secondaryInk}
-			/>
-		</TouchableOpacity>
-        <Popup showPopup={showActiveUsersModal} type={SCREEN_END}>
-            <Text style={styles.modalTitle}>Active Users</Text>
-            <FlatList
-				data={activeUsers}
-				renderItem={renderItem}
-				keyExtractor={item => item.id}
-				ItemSeparatorComponent={() => <Separator />}
-				ListEmptyComponent = {() => <Loader />}
-            />
-            <GeneralButton
-				title="close"
-				type={SECONDARY}
-				onPress={() => setShowActiveUsersModal(false)}
-            />
-        </Popup>
-    </>
-  )
+	return (
+		<>
+			<TouchableOpacity 
+				onPress={onActiveUsersDropdownPress}
+				style={styles.showUsersContainer}
+			>
+				<Text style={styles.showUsersTitle}>Active Users</Text>
+				<AntDesign 
+					name='caretdown'
+					color={colors.secondaryInk}
+				/>
+			</TouchableOpacity>
+			<Popup showPopup={showActiveUsersModal} type={SCREEN_END}>
+				<Text style={styles.modalTitle}>Active Users</Text>
+				<FlatList
+					data={activeUsers}
+					renderItem={renderItem}
+					keyExtractor={item => item.id}
+					ItemSeparatorComponent={() => <Separator />}
+					ListEmptyComponent = {() => <Loader />}
+				/>
+				<GeneralButton
+					title="close"
+					type={SECONDARY}
+					onPress={() => setShowActiveUsersModal(false)}
+				/>
+			</Popup>
+		</>
+	)
 }
 
 const ActiveUserRow = ({user, onUserPress}) => {
-  return (
-    <Pressable 
-		style={styles.userRowContainer}
-		onPress={onUserPress}
-    >
-      <Image
-			style={styles.userPicture}
-			source={{uri:user.picture}}
-      />
-      <Text style={styles.userName}>{user.firstName} {user.lastName}</Text>
-    </Pressable>
-  )
+	return (
+		<Pressable 
+			style={styles.userRowContainer}
+			onPress={onUserPress}
+		>
+		<Image
+				style={styles.userPicture}
+				source={{uri:user.picture}}
+		/>
+		<Text style={styles.userName}>{user.firstName} {user.lastName}</Text>
+		</Pressable>
+	)
 }
 
 const Separator = () => {
